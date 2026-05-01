@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>English App</title>
+</head>
+<body>
+
+<h1>Учить английский</h1>
+
+<button onclick="startLesson()">Начать урок</button>
+
+<div id="lesson" style="display:none;">
+  <h2 id="word"></h2>
+  <button onclick="nextWord()">Дальше</button>
+</div>
+
+<script>
+let words = [
+  {en: "apple", ru: "яблоко"},
+  {en: "go", ru: "идти"}
+];
+
+let index = 0;
+
+function startLesson() {
+  document.getElementById("lesson").style.display = "block";
+  showWord();
+}
+
+function showWord() {
+  document.getElementById("word").innerText =
+    words[index].en + " - " + words[index].ru;
+}
+
+function nextWord() {
+  index++;
+  if(index >= words.length) index = 0;
+  showWord();
+}
+</script>
+
+</body>
+</html>
