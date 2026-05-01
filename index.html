@@ -70,9 +70,13 @@
     <button onclick="startLesson()">Учить слова</button>
     <button onclick="startTest()">Тест</button>
   </div>
-  <button onclick="alert('Работает')">Новая кнопка</button>
+  <button onclick="startReading()">Читать</button>
 
   <div id="lesson" class="card" style="display:none;">
+    <div id="reader" class="card" style="display:none;">
+  <h2>Чтение</h2>
+  <p id="text"></p>
+</div>
     <h2 id="word"></h2>
     <button onclick="nextWord()">Дальше</button>
   </div>
@@ -172,6 +176,31 @@ function checkAnswer(i) {
   }
 
   showQuestion();
+}
+function startReading() {
+  document.getElementById("lesson").style.display = "none";
+  document.getElementById("test").style.display = "none";
+  document.getElementById("reader").style.display = "block";
+
+  let text = "I have a dog and a cat";
+  let wordsArr = text.split(" ");
+
+  let html = "";
+  wordsArr.forEach(word => {
+    html += `<span onclick="translateWord('${word}')">${word}</span> `;
+  });
+
+  document.getElementById("text").innerHTML = html;
+}
+
+function translateWord(word) {
+  let found = words.find(w => w.en === word.toLowerCase());
+
+  if(found){
+    alert(word + " = " + found.ru);
+  } else {
+    alert("Нет в словаре");
+  }
 }
 </script>
 
