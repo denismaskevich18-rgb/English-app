@@ -7,11 +7,18 @@
 
 <h1>Учить английский</h1>
 
-<button onclick="startLesson()">Начать урок</button>
+<button onclick="startLesson()">Учить слова</button>
+<button onclick="startTest()">Пройти тест</button>
 
 <div id="lesson" style="display:none;">
   <h2 id="word"></h2>
   <button onclick="nextWord()">Дальше</button>
+</div>
+
+<div id="test" style="display:none;">
+  <h2 id="question"></h2>
+  <button onclick="checkAnswer(0)" id="btn0"></button><br><br>
+  <button onclick="checkAnswer(1)" id="btn1"></button>
 </div>
 
 <script>
@@ -24,6 +31,7 @@ let index = 0;
 
 function startLesson() {
   document.getElementById("lesson").style.display = "block";
+  document.getElementById("test").style.display = "none";
   showWord();
 }
 
@@ -36,6 +44,48 @@ function nextWord() {
   index++;
   if(index >= words.length) index = 0;
   showWord();
+}
+
+// ТЕСТ
+let correct = 0;
+
+function startTest() {
+  document.getElementById("lesson").style.display = "none";
+  document.getElementById("test").style.display = "block";
+  index = 0;
+  showQuestion();
+}
+
+function showQuestion() {
+  let w = words[index];
+  document.getElementById("question").innerText = w.en + " = ?";
+  
+  let answers = [w.ru, "не знаю"];
+  correct = 0;
+
+  if(Math.random() > 0.5){
+    answers = ["не знаю", w.ru];
+    correct = 1;
+  }
+
+  document.getElementById("btn0").innerText = answers[0];
+  document.getElementById("btn1").innerText = answers[1];
+}
+
+function checkAnswer(i) {
+  if(i === correct){
+    alert("Правильно!");
+  } else {
+    alert("Неправильно!");
+  }
+
+  index++;
+  if(index >= words.length){
+    alert("Тест закончен!");
+    index = 0;
+  }
+
+  showQuestion();
 }
 </script>
 
