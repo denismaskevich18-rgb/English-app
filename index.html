@@ -2,83 +2,87 @@
 <html>
 <head>
   <title>English App</title>
+
   <style>
     body {
       font-family: Arial;
+      margin: 0;
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+    }
+
+    h1 {
       text-align: center;
-      background: #f0f0f0;
     }
-    button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background: #58cc02;
-      color: white;
-    }
+
     .card {
       background: white;
       padding: 20px;
-      margin: 20px;
       border-radius: 15px;
+      margin-top: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-  <style>
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #f7f7f7;
-  display: flex;
-  justify-content: center;
-}
 
-.app {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #58cc02;
+      color: white;
+      font-size: 16px;
+    }
 
-h1 {
-  text-align: center;
-}
+    button:active {
+      background: #46a302;
+    }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin-top: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+    #answers button {
+      background: #eee;
+      color: black;
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #58cc02;
-  color: white;
-  font-size: 16px;
-}
+    #answers button:active {
+      background: #ccc;
+    }
 
-button:active {
-  background: #46a302;
-}
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
 
-#answers button {
-  background: #eee;
-  color: black;
-}
+<body>
+<div class="app">
 
-#answers button:active {
-  background: #ccc;
-}
+  <h1>Учить английский</h1>
 
-.status {
-  margin-top: 10px;
-  font-weight: bold;
-}
-</style>
+  <div class="card">
+    <button onclick="startLesson()">Учить слова</button>
+    <button onclick="startTest()">Тест</button>
+  </div>
+
+  <div id="lesson" class="card" style="display:none;">
+    <h2 id="word"></h2>
+    <button onclick="nextWord()">Дальше</button>
+  </div>
+
+  <div id="test" class="card" style="display:none;">
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+    <p id="status" class="status"></p>
+  </div>
+
+</div>
 
 <script>
 let words = [
@@ -145,7 +149,7 @@ function showQuestion() {
 
   let html = "";
   options.forEach((opt, i) => {
-    html += `<button onclick="checkAnswer(${i})">${opt}</button><br>`;
+    html += `<button onclick="checkAnswer(${i})">${opt}</button>`;
   });
 
   document.getElementById("answers").innerHTML = html;
@@ -162,7 +166,7 @@ function checkAnswer(i) {
 
   index++;
   if (index >= words.length) {
-    alert("Ты прошёл тест! Очки: " + score);
+    alert("Тест закончен! Очки: " + score);
     index = 0;
   }
 
