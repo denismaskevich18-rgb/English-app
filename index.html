@@ -48,6 +48,7 @@ function nextWord() {
 
 // ТЕСТ
 let correct = 0;
+let score = 0;
 
 function startTest() {
   document.getElementById("lesson").style.display = "none";
@@ -75,9 +76,22 @@ function showQuestion() {
 function checkAnswer(i) {
   if(i === correct){
     alert("Правильно!");
+    score++;
   } else {
     alert("Неправильно!");
   }
+
+  alert("Очки: " + score);
+
+  index++;
+  if(index >= words.length){
+    alert("Тест закончен! Твои очки: " + score);
+    index = 0;
+    score = 0;
+  }
+
+  showQuestion();
+}
 
   index++;
   if(index >= words.length){
